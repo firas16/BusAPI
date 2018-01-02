@@ -4,5 +4,9 @@
   vars:
     venv_path: "/home/vagrant/venv"
     requirements_path: "/vagrant/requirements.txt"
+    dbname: postgres
+    dbuser: postgres
+    dbpassword: postgres
   roles:
-    - {role: python}
+    #- {role: python}
+    - {role: postgresql}
