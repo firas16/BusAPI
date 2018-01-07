@@ -20,7 +20,8 @@
     </role>
     <schema id="4" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-01-03.00:21:52.727</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2018-01-07.18:54:59.170</IntrospectionTimestamp>
+      <IntrospectionStateNumber>665</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -39,5 +40,121 @@
     <schema id="9" parent="2" name="information_schema">
       <ObjectId>12119</ObjectId>
     </schema>
+    <table id="10" parent="4" name="bus">
+      <ObjectId>16395</ObjectId>
+      <StateNumber>665</StateNumber>
+    </table>
+    <table id="11" parent="4" name="busline">
+      <ObjectId>16384</ObjectId>
+      <StateNumber>665</StateNumber>
+    </table>
+    <table id="12" parent="4" name="station">
+      <ObjectId>16390</ObjectId>
+      <StateNumber>662</StateNumber>
+    </table>
+    <column id="13" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>663</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="14" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <StateNumber>663</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="15" parent="10" name="longitude">
+      <Position>3</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>663</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="16" parent="10" name="latitude">
+      <Position>4</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>663</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="17" parent="10" name="line">
+      <Position>5</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>664</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="18" parent="10" name="bus_busline_id_fk">
+      <ObjectId>16398</ObjectId>
+      <ColNames>line</ColNames>
+      <RefTableId>16384</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>busline</RefTableName>
+      <RefKeyName>busline_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="19" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>660</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="20" parent="11" name="name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <StateNumber>660</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="21" parent="11" name="busline_pkey">
+      <ObjectId>16387</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="22" parent="11" name="busline_name_uindex">
+      <ObjectId>16389</ObjectId>
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="23" parent="11" name="busline_pkey">
+      <ObjectId>16388</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>busline_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="24" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>662</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="25" parent="12" name="name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <StateNumber>662</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="26" parent="12" name="longitude">
+      <Position>3</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>662</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="27" parent="12" name="latitude">
+      <Position>4</Position>
+      <DataType>double precision|0</DataType>
+      <StateNumber>662</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <index id="28" parent="12" name="station_pkey">
+      <ObjectId>16393</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="29" parent="12" name="station_pkey">
+      <ObjectId>16394</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>station_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>
