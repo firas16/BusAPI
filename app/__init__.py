@@ -3,8 +3,10 @@ from flask import Flask, jsonify, request, abort
 # local import
 from instance.config import app_config
 
+
 # initialize sql-alchemy
 db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
@@ -12,8 +14,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/postgres'
     db.init_app(app)
 
-
-    from data.models import Bus
+    from data.bus import Bus
 
     @app.route('/buses/', methods=['GET'])
     def buses():
@@ -47,7 +48,6 @@ def create_app():
     @app.errorhandler(404)
     def not_found(error):
         return make_response(jsonify({'error': 'Not found'}), 404)
-
 
 
     return app

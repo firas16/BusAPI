@@ -1,6 +1,5 @@
 from app import db
 
-
 class Bus(db.Model):
     __tablename__ = 'bus'
     id = db.Column(db.Integer, primary_key=True)
@@ -14,10 +13,10 @@ class Bus(db.Model):
         self.longitude = longitude
         self.latitude = latitude
 
-    def serialize(self):
-        return {
-            'gene_id': self.name
-        }
+    @staticmethod
+    def get_bus(id):
+        res = Bus.query.get(id)
+        return res
 
     def save(self):
         db.session.add(self)
@@ -29,13 +28,3 @@ class Bus(db.Model):
 
     def __repr__(self):
         return "<Bus '{}'".format(self.name)
-
-
-# class BusSchema(ma.Schema):
-#     class Meta:
-#         # Fields to expose
-#         fields = ('name')
-#
-#
-# bus_schema = BusSchema()
-# buses_schema = BusSchema(many=True)
