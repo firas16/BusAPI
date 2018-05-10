@@ -172,3 +172,5 @@ venv.bak/
 *.pyc
 
 *.meta
+
+\.idea/

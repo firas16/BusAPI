@@ -8,4 +8,4 @@ api = Api(app)
 api.add_resource(Busitem, '/bus/<bus_id>')  # Route_3
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
