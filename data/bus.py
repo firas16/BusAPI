@@ -1,18 +1,16 @@
 from app import db
 
 class Bus(db.Model):
-    __tablename__ = 'bus'
+    __tablename__ = 'buses'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
     longitude = db.Column(db.Float)
     latitude = db.Column(db.Float)
     line = db.Column(db.Integer)
 
-    def __init__(self, name, longitude, latitude):
+    def __init__(self, name, line):
         self.name = name
-        self.longitude = longitude
-        self.latitude = latitude
-
+        self.line = line
     @staticmethod
     def get_bus(id):
         res = Bus.query.get(id)

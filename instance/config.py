@@ -4,8 +4,8 @@ class Config(object):
     """Parent configuration class."""
     DEBUG = False
     CSRF_ENABLED = True
-    SECRET = os.getenv('SECRET')
-    SQLALCHEMY_DATABASE_URI = os.getenv('postgresql://localhost:5432/postgres')
+    SECRET = "\x91N83\xb3\xea\xdd\x85\xfa\xa1c\xfa\xae\xb1\x1cFFy\xb7i/\xb4\x99\x88"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@localhost:5432/postgres"
 
 class DevelopmentConfig(Config):
     """Configurations for Development."""
@@ -14,7 +14,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     """Configurations for Testing, with a separate test database."""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:5432/postgres'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:5432/test_db'
     DEBUG = True
 
 class StagingConfig(Config):
