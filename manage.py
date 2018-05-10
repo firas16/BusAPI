@@ -4,7 +4,7 @@ from flask_migrate import Migrate, MigrateCommand
 from app import db, create_app
 from data import bus
 
-app = create_app("development")
+app = create_app("testing")
 migrate = Migrate(app, db)
 manager = Manager(app)
 
