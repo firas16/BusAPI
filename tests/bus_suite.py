@@ -18,6 +18,7 @@ class BusTestCase(unittest.TestCase):
 
     def test_bus_creation(self):
         """ Test creation of a Bus Post request"""
+        ff = data=self.bus
         res = self.client().post('/buses/', data=self.bus)
         self.assertEqual(res.status_code, 201)
         self.assertIn('hemla', str(res.data))

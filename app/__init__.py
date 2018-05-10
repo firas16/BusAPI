@@ -17,7 +17,38 @@ def create_app(config_name):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
+    from data.bus import Bus
+
+    @app.route('/buses/', methods=['POST', 'GET'])
+    def buses():
+        if(request.method == "POST"):
+            name = str(request.form.get('name', ''))
+            line = str(request.form.get('line', ''))
+            if(name):
+                bus = Bus(name=name, line=line)
+                bus.save()
+                response = jsonify({
+                    'id': bus.id,
+                    'name': bus.name,
+                    'line': bus.line,
+                    'longitude' : 0,
+                    'latitude': 0,
+                })
+                response.status_code = 201
+            return response
+        else:
+            bucketlists = Bus.get_all()
+            results = []
+            for bucketlist in bucketlists:
+                obj = {
+                    'name': bucketlist.name,
+                }
+                results.append(obj)
+            response = jsonify(results)
+            response.status_code = 200
+        return response
     return app
+
 
 # def create_app():
 #     app = Flask(__name__)
