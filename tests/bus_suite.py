@@ -45,12 +45,13 @@ class BusTestCase(unittest.TestCase):
         """Test API can edit an existing bus. (PUT request)"""
         rv = self.client().post(
             '/buses/',
-            data={'name': 'hemla'})
+            data={'name': 'hemla', 'line' : 27})
         self.assertEqual(rv.status_code, 201)
         rv = self.client().put(
             '/buses/1',
             data={
-                "name": "hemla"
+                "name": "hemla",
+                "line": 27
             })
         self.assertEqual(rv.status_code, 200)
         results = self.client().get('/buses/1')
@@ -60,7 +61,7 @@ class BusTestCase(unittest.TestCase):
         """Test API can delete an existing bus. (DELETE request)."""
         rv = self.client().post(
             '/buses/',
-            data={'name': 'hemla'})
+            data={'name': 'hemla', 'line' : 27})
         self.assertEqual(rv.status_code, 201)
         res = self.client().delete('/buses/1')
         self.assertEqual(res.status_code, 200)

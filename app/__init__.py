@@ -47,6 +47,44 @@ def create_app(config_name):
             response = jsonify(results)
             response.status_code = 200
         return response
+
+    @app.route('/buses/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+    def bus_manipulation(id, **kwargs):
+        # retrieve a bus using it's ID
+        bus = Bus.query.filter_by(id=id).first()
+        if not bus:
+            # Raise an HTTPException with a 404 not found status code
+            abort(404)
+
+        if request.method == 'DELETE':
+            bus.delete()
+            return (
+                        "bus {} deleted successfully".format(bus.id)
+                   ,200)
+
+        elif request.method == 'PUT':
+            name = str(request.form.get('name', ''))
+            bus.name = name
+            bus.save()
+            response = jsonify({
+                'id': bus.id,
+                'name': bus.name,
+                'line': bus.line
+            })
+            response.status_code = 200
+            return response
+        else:
+            # GET
+            response = jsonify({
+                'id': bus.id,
+                'name': bus.name,
+                'line': bus.line,
+                'longitude': bus.longitude,
+                'latitude' : bus.latitude
+            })
+            response.status_code = 200
+            return response
+
     return app
 
 

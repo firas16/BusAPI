@@ -24,5 +24,9 @@ class Bus(db.Model):
     def get_all():
         return Bus.query.all()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def __repr__(self):
         return "<Bus '{}'".format(self.name)
