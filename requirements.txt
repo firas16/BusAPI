@@ -1,4 +1,5 @@
 Flask==0.12
+python-passlib==1.7.1
 Flask-RESTful==0.3.6
 flask_sqlalchemy==2.1
 flask_marshmallow==0.8.0
