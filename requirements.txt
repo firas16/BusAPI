@@ -1,5 +1,5 @@
+PyJWT==1.6.1
 Flask==0.12
-python-passlib==1.7.1
 Flask-RESTful==0.3.6
 flask_sqlalchemy==2.1
 flask_marshmallow==0.8.0
@@ -7,3 +7,4 @@ marshmallow-sqlalchemy==0.13.2
 psycopg2==2.7.3.2
 FlaskAPI==1.0
 flask_migrate==2.2.1
+flask-bcrypt==0.7.1
