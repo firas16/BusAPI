@@ -68,40 +68,60 @@ def create_app(config_name):
 
     @app.route('/buses/<int:id>', methods=['GET', 'PUT', 'DELETE'])
     def bus_manipulation(id, **kwargs):
-        # retrieve a bus using it's ID
-        bus = Bus.query.filter_by(id=id).first()
-        if not bus:
-            # Raise an HTTPException with a 404 not found status code
-            abort(404)
 
-        if request.method == 'DELETE':
-            bus.delete()
-            return (
-                        "bus {} deleted successfully".format(bus.id)
-                   ,200)
+        auth_header = request.headers.get('Authorization')
+        access_token = auth_header.split(" ")[1]
 
-        elif request.method == 'PUT':
-            name = str(request.form.get('name', ''))
-            bus.name = name
-            bus.save()
-            response = jsonify({
-                'id': bus.id,
-                'name': bus.name,
-                'line': bus.line
-            })
-            response.status_code = 200
-            return response
-        else:
-            # GET
-            response = jsonify({
-                'id': bus.id,
-                'name': bus.name,
-                'line': bus.line,
-                'longitude': bus.longitude,
-                'latitude' : bus.latitude
-            })
-            response.status_code = 200
-            return response
+        if access_token:
+            # Get the user id related to this access token
+            from data.user import User
+            user_id = User.decode_token(access_token)
+
+            if not isinstance(user_id, str):
+                # If the id is not a string(error), we have a user id
+                # Get the bucketlist with the id specified from the URL (<int:id>)
+                # retrieve a bus using it's ID
+                bus = Bus.query.filter_by(id=id).first()
+                if not bus:
+                    # Raise an HTTPException with a 404 not found status code
+                    abort(404)
+
+                if request.method == 'DELETE':
+                    bus.delete()
+                    return (
+                                "bus {} deleted successfully".format(bus.id)
+                           ,200)
+
+                elif request.method == 'PUT':
+                    name = str(request.form.get('name', ''))
+                    bus.name = name
+                    bus.save()
+                    response = jsonify({
+                        'id': bus.id,
+                        'name': bus.name,
+                        'line': bus.line
+                    })
+                    response.status_code = 200
+                    return response
+                else:
+                    # GET
+                    response = jsonify({
+                        'id': bus.id,
+                        'name': bus.name,
+                        'line': bus.line,
+                        'longitude': bus.longitude,
+                        'latitude' : bus.latitude
+                    })
+                    response.status_code = 200
+                    return response
+            else:
+                # user is not legit, so the payload is an error message
+                message = user_id
+                response = {
+                    'message': message
+                }
+                # return an error response, telling the user he is Unauthorized
+                return make_response(jsonify(response)), 401
 
     # import the authentication blueprint and register it on the app
     from .auth import auth_blueprint

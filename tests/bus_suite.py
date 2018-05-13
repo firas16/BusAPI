@@ -86,6 +86,7 @@ class BusTestCase(unittest.TestCase):
         self.assertEqual(rv.status_code, 201)
         rv = self.client().put(
             '/buses/1',
+            headers=dict(Authorization="Bearer " + access_token),
             data={
                 "name": "hemla",
                 "line": 27
@@ -102,6 +103,7 @@ class BusTestCase(unittest.TestCase):
 
         rv = self.client().post(
             '/buses/',
+            headers=dict(Authorization="Bearer " + access_token),
             data={'name': 'hemla', 'line' : 27})
         self.assertEqual(rv.status_code, 201)
         res = self.client().delete('/buses/1', headers=dict(Authorization="Bearer " + access_token))
