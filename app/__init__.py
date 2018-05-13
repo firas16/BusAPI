@@ -65,7 +65,6 @@ def create_app(config_name):
                 }
                 return make_response(jsonify(response)), 401
 
-
     @app.route('/buses/<int:id>', methods=['GET', 'PUT', 'DELETE'])
     def bus_manipulation(id, **kwargs):
 
