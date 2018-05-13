@@ -5,7 +5,7 @@ from API.bus import BusAPI
 app = create_app('development')
 api = Api(app)
 
-api.add_resource(BusAPI, '/cars/<int:id>')  # Route_3
+api.add_resource(BusAPI, '/cars/<int:id>')  # Route_1
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
