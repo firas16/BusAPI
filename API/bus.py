@@ -42,6 +42,40 @@ class BusAPI(Resource):
                 # return an error response, telling the user he is Unauthorized
                 return (jsonify(response)), 401
 
+    @app.route('/cars/', methods=['POST'])
+    def post(self, id):
+        # Get the access token from the header
+        auth_header = request.headers.get('Authorization')
+        access_token = auth_header.split(" ")[1]
+        if access_token:
+            # Attempt to decode the token and get the User ID
+            from data.user import User
+            user_id = User.decode_token(access_token)
+            if not isinstance(user_id, str):
+                # Go ahead and handle the request, the user is authenticated
+                name = str(request.form.get('name', ''))
+                line = str(request.form.get('line', ''))
+                if (name):
+                    bus = Bus(name=name, line=line)
+                    bus.save()
+                    response = jsonify({
+                        'id': bus.id,
+                        'name': bus.name,
+                        'line': bus.line,
+                        'longitude': 0,
+                        'latitude': 0,
+                    })
+                    response.status_code = 201
+                return response
+
+            else:
+                # user is not legit, so the payload is an error message
+                message = user_id
+                response = {
+                    'message': message
+                }
+                return (jsonify(response)), 401
+
     def put(self, id):
         auth_header = request.headers.get('Authorization')
         access_token = auth_header.split(" ")[1]
@@ -118,5 +152,6 @@ class BusAPI(Resource):
                 return (jsonify(response)), 401
 
 api.add_resource(BusAPI, '/cars/<int:id>', endpoint = 'bus')
+
 
 
